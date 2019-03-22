@@ -1,0 +1,20 @@
+﻿@using Mentoring.Core.Module1.Models
+@model IEnumerable<Category>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Categories</title>
+</head>
+<body>
+    <h2>Categories we have:</h2>
+    <ol>
+        @foreach(var item in Model)
+        {
+            <li>@item.CategoryName</li>
+        }
+    </ol>
+</body>
+</html>
