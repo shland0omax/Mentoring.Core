@@ -1,0 +1,11 @@
+﻿@model int
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h2>Status @Model</h2>
+
+<h6>Your request returned HTTP status @Model</h6>
+
+@Html.ActionLink("Back to the homepage", "Index", "Home")
+

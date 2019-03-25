@@ -2,6 +2,7 @@
 using Mentoring.Core.Module1.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Mentoring.Core.Module1.Controllers
 {
@@ -9,16 +10,19 @@ namespace Mentoring.Core.Module1.Controllers
     {
         private IDataService _dataService;
         private IConfiguration _configuration;
+        private ILogger<ProductController> _logger;
 
-        public ProductController(IDataService dataService, IConfiguration configuration)
+        public ProductController(IDataService dataService, IConfiguration configuration, ILogger<ProductController> logger)
         {
             _dataService = dataService;
             _configuration = configuration;
+            _logger = logger;
         }
 
         public IActionResult Index()
         {
             var count = _configuration.GetValue<int>("PageSize");
+            _logger.LogInformation($"App setting \"PageSize\" have been read. Value:{count}");
             return View(_dataService.GetProducts(count));
         }
 

@@ -13,19 +13,22 @@ namespace Mentoring.Core.Module1
     public class Startup
     {
         private IConfiguration _config;
+        private ILogger<Startup> _logger; 
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, ILogger<Startup> logger)
         {
             _config = configuration;
+            _logger = logger;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            var connection = _config.GetConnectionString("Northwind");
             services.AddDbContext<NorthwindDbContext>(
-                options => options.UseSqlServer(_config.GetConnectionString("Northwind")));
+                options => options.UseSqlServer(connection));
+            _logger.LogInformation($"Connection string have been read. Value: {connection}");
             services.AddScoped<IDataService, NorthwindDataService>();
             services.AddMvc();
         }
@@ -37,16 +40,25 @@ namespace Mentoring.Core.Module1
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("Error/500");
+            }
+
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
             app.UseFileServer();
             app.UseNodeModules(env.ContentRootPath);
 
             app.UseMvc(ConfigureRoutes);
+            _logger.LogInformation($"Startup configuration finished. App is ready to run! Folder: {env.ContentRootPath}");
         }
 
         private void ConfigureRoutes(IRouteBuilder routeBuilder)
         {
             routeBuilder.MapRoute("Default","{controller=Home}/{action=Index}/{id?}");
         }
+
+
     }
 }

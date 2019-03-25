@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Mentoring.Core.Module1.Services;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Mentoring.Core.Module1.Middleware;
 
 namespace Mentoring.Core.Module1
 {
@@ -20,6 +14,7 @@ namespace Mentoring.Core.Module1
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureLogging(x => x.AddProvider(new FileLoggerProvider("test.log")))
                 .UseStartup<Startup>();
     }
 }

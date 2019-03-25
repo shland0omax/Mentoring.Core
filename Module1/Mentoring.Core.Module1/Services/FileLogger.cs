@@ -11,13 +11,13 @@ namespace Mentoring.Core.Module1.Services
         private readonly LogLevel _minLogLevel;
         private readonly object _lock = new object();
 
-        public FileLogger(string path, LogLevel logLevel = LogLevel.Error)
+        public FileLogger(string path, LogLevel logLevel = LogLevel.Information)
         {
             _filePath = path;
             _minLogLevel = logLevel;
         }
 
-        public FileLogger(IConfiguration configuration, string setting, LogLevel logLevel = LogLevel.Error)
+        public FileLogger(IConfiguration configuration, string setting, LogLevel logLevel = LogLevel.Information)
         {
             _filePath = configuration.GetValue<string>(setting);
             _minLogLevel = logLevel;
@@ -35,12 +35,11 @@ namespace Mentoring.Core.Module1.Services
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            if (formatter != null)
+            if (formatter == null) return;
+            lock (_lock)
             {
-                lock (_lock)
-                {
-                    File.AppendAllText(_filePath, formatter(state, exception) + Environment.NewLine);
-                }
+                var log = $"{logLevel}: {formatter(state, exception) + Environment.NewLine}";
+                File.AppendAllText(_filePath, log);
             }
         }
     }
