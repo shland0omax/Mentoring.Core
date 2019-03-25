@@ -1,21 +1,11 @@
-﻿
-@{
-    Layout = null;
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <h2>Hello, stranger!</h2>
-    <div>
-        <a asp-controller="Category" asp-action="Index">Categories</a>
-        <a asp-controller="Product" asp-action="Index">Products</a>
-    </div>
-
-</body>
-</html>
+<h2>Hello, stranger!</h2>
+<div>
+    <p>This is just a simple ASP.NET Core project.</p>
+    <p>You can look for smth interesting in a navbar links.</p>
+</div>
