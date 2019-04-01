@@ -1,5 +1,7 @@
-﻿using Mentoring.Core.Module1.Data;
-using Mentoring.Core.Module1.Services;
+﻿using AutoMapper;
+using Mentoring.Core.Data.Context;
+using Mentoring.Core.Data.Interface;
+using Mentoring.Core.Data.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
@@ -26,10 +28,11 @@ namespace Mentoring.Core.Module1
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = _config.GetConnectionString("Northwind");
-            services.AddDbContext<NorthwindDbContext>(
+            services.AddDbContext<NorthwindContext>(
                 options => options.UseSqlServer(connection));
             _logger.LogInformation($"Connection string have been read. Value: {connection}");
-            services.AddScoped<IDataService, NorthwindDataService>();
+            ConfigureDi(services);
+            services.AddAutoMapper();
             services.AddMvc();
         }
 
@@ -59,6 +62,11 @@ namespace Mentoring.Core.Module1
             routeBuilder.MapRoute("Default","{controller=Home}/{action=Index}/{id?}");
         }
 
-
+        private void ConfigureDi(IServiceCollection services)
+        {
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ISupplierRepository, SupplierRepository>();
+        }
     }
 }

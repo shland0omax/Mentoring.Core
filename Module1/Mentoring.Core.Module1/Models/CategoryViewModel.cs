@@ -2,7 +2,7 @@
 
 namespace Mentoring.Core.Module1.Models
 {
-    public class Category
+    public class CategoryViewModel
     {
         public int CategoryId { get; set; }
         [Required, StringLength(15)]

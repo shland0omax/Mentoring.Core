@@ -2,7 +2,7 @@
 
 namespace Mentoring.Core.Module1.Models
 {
-    public class Product
+    public class ProductViewModel
     {
         public int ProductId { get; set; }
         public int? SupplierId { get; set; }
@@ -18,5 +18,8 @@ namespace Mentoring.Core.Module1.Models
         public short? ReorderLevel { get; set; }
         [Required]
         public bool Discontinued { get; set; }
+
+        public CategoryViewModel Category { get; set;}
+        public SupplierViewModel Supplier { get; set; }
     }
 }

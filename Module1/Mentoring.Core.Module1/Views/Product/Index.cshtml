@@ -1,34 +1,39 @@
 ﻿@using Mentoring.Core.Module1.Models
-@model IEnumerable<Product>
-
+@model IEnumerable<ProductViewModel>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <h2>Products we have</h2>
     
     <table class="table">
         <tr>
             <th scope="col">№</th>
             <th scope="col">Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Supplier</th>
             <th scope="col">Unit desc.</th>
             <th scope="col">Price</th>
             <th scope="col">In stock</th>
             <th scope="col">On order</th>
             <th scope="col">Reorder lvl.</th>
-            <th scope="col">Discontinued</th>
+            <th scope="col">Disc.</th>
+            <th scope="col">Edit</th>
         </tr>
         @foreach(var item in Model)
         {
-            <tr>
-                <td>@item.ProductId</td>
-                <td>@item.ProductName</td>
-                <td>@item.QuantityPerUnit</td>
-                <td>@string.Format("{0:0.00}", item.UnitPrice ?? 0)</td>
-                <td>@item.UnitsInStock</td>
-                <td>@item.UnitsOnOrder</td>
-                <td>@item.ReorderLevel</td>
-                <td>
-                    <span class="glyphicon @(item.Discontinued ? "glyphicon-ok" : "glyphicon-remove") "></span>
-                </td>
-                <td><a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.ProductId" >Edit</a></td>
-            </tr>
+        <tr>
+            <td>@item.ProductId</td>
+            <td>@item.ProductName</td>
+            <td>@item.Category.CategoryName</td>
+            <td>@item.Supplier.CompanyName</td>
+            <td>@item.QuantityPerUnit</td>
+            <td>@string.Format("{0:0.00}", item.UnitPrice ?? 0)</td>
+            <td>@item.UnitsInStock</td>
+            <td>@item.UnitsOnOrder</td>
+            <td>@item.ReorderLevel</td>
+            <td>
+                <span class="glyphicon @(item.Discontinued ? "fa-check" : "fa-remove") "></span>
+            </td>
+            <td><a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.ProductId">Edit</a></td>
+        </tr>
         }
     </table>
-
+    

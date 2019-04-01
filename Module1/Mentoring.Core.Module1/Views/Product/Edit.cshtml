@@ -1,55 +1,55 @@
 ﻿@using Mentoring.Core.Module1.Models
-@model Product
+@model EditProductViewModel
 
 
 
-<h2>Edit product: @Model.ProductName</h2>
+<h2>EditAsync product: @Model.Product.ProductName</h2>
 <form method="post">
     <div class="form-group">
-        <label asp-for="ProductName"></label>
-        <input asp-for="ProductName" />
-        <span asp-validation-for="ProductName"></span>
+        <label asp-for="Product.ProductName"></label>
+        <input asp-for="Product.ProductName" />
+        <span asp-validation-for="Product.ProductName"></span>
     </div>
     <div class="form-group">
-        <label asp-for="CategoryId"></label>
-        <select asp-for="CategoryId" asp-items="@(new SelectList(ViewData["Categories"] as IEnumerable<Category>, "CategoryId", "CategoryName"))"></select>
-        <span asp-validation-for="CategoryId"></span>
+        <label asp-for="Product.CategoryId"></label>
+        <select asp-for="Product.CategoryId" asp-items="@(new SelectList(Model.Categories, "CategoryId", "CategoryName"))"></select>
+        <span asp-validation-for="Product.CategoryId"></span>
     </div>
     <div class="form-group">
-        <label asp-for="SupplierId"></label>
-        <select asp-for="SupplierId" asp-items="@(new SelectList(ViewData["Suppliers"] as IEnumerable<Supplier>, "SupplierId", "CompanyName"))"></select>
-        <span asp-validation-for="SupplierId"></span>
+        <label asp-for="Product.SupplierId"></label>
+        <select asp-for="Product.SupplierId" asp-items="@(new SelectList(Model.Suppliers, "SupplierId", "CompanyName"))"></select>
+        <span asp-validation-for="Product.SupplierId"></span>
     </div>
     <div class="form-group">
-        <label asp-for="QuantityPerUnit"></label>
-        <input asp-for="QuantityPerUnit" />
-        <span asp-validation-for="QuantityPerUnit"></span>
+        <label asp-for="Product.QuantityPerUnit"></label>
+        <input asp-for="Product.QuantityPerUnit" />
+        <span asp-validation-for="Product.QuantityPerUnit"></span>
     </div>
     <div class="form-group">
-        <label asp-for="ReorderLevel"></label>
-        <input asp-for="ReorderLevel" />
-        <span asp-validation-for="ReorderLevel"></span>
+        <label asp-for="Product.ReorderLevel"></label>
+        <input asp-for="Product.ReorderLevel" />
+        <span asp-validation-for="Product.ReorderLevel"></span>
     </div>
     <div class="form-group">
-        <label asp-for="UnitPrice"></label>
-        <input asp-for="UnitPrice" />
-        <span asp-validation-for="UnitPrice"></span>
+        <label asp-for="Product.UnitPrice"></label>
+        <input asp-for="Product.UnitPrice" />
+        <span asp-validation-for="Product.UnitPrice"></span>
     </div>
     <div class="form-group">
-        <label asp-for="UnitsInStock"></label>
-        <input asp-for="UnitsInStock" />
-        <span asp-validation-for="UnitsInStock"></span>
+        <label asp-for="Product.UnitsInStock"></label>
+        <input asp-for="Product.UnitsInStock" />
+        <span asp-validation-for="Product.UnitsInStock"></span>
     </div>
     <div class="form-group">
-        <label asp-for="UnitsOnOrder"></label>
-        <input asp-for="UnitsOnOrder" />
-        <span asp-validation-for="UnitsOnOrder"></span>
+        <label asp-for="Product.UnitsOnOrder"></label>
+        <input asp-for="Product.UnitsOnOrder" />
+        <span asp-validation-for="Product.UnitsOnOrder"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Discontinued"></label>
-        <input asp-for="Discontinued" />
-        <span asp-validation-for="Discontinued"></span>
+        <label asp-for="Product.Discontinued"></label>
+        <input asp-for="Product.Discontinued" />
+        <span asp-validation-for="Product.Discontinued"></span>
     </div>
-    <input type="hidden" asp-for="ProductId"/>
+    <input type="hidden" asp-for="Product.ProductId"/>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

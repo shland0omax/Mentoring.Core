@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Mentoring.Core.Module1.Models
+namespace Mentoring.Core.Data.Models
 {
-    public class Supplier
+    public partial class Suppliers
     {
+        public Suppliers()
+        {
+            Products = new HashSet<Products>();
+        }
+
+        [Key]
         public int SupplierId { get; set; }
-        [Required]
         public string CompanyName { get; set; }
         public string ContactName { get; set; }
         public string ContactTitle { get; set; }
@@ -21,5 +24,7 @@ namespace Mentoring.Core.Module1.Models
         public string Phone { get; set; }
         public string Fax { get; set; }
         public string HomePage { get; set; }
+
+        public ICollection<Products> Products { get; set; }
     }
 }
