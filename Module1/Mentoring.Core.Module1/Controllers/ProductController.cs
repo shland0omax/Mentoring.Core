@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Mentoring.Core.Data.Interface;
-using Mentoring.Core.Data.Models;
 using Mentoring.Core.Module1.Models;
+using Mentoring.Core.Services.Interface;
+using Mentoring.Core.Services.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -12,37 +12,37 @@ namespace Mentoring.Core.Module1.Controllers
 {
     public class ProductController : Controller
     {
-        private IConfiguration _configuration;
-        private ILogger<ProductController> _logger;
-        private IMapper _mapper;
-        private IProductRepository _repository;
-        private ICategoryRepository _categoryRepository;
-        private ISupplierRepository _supplierRepository;
+        private readonly IConfiguration _configuration;
+        private readonly ILogger<ProductController> _logger;
+        private readonly IMapper _mapper;
+        private readonly IService<Product> _service;
+        private readonly IService<Category> _categoryService;
+        private readonly IService<Supplier> _supplierService;
 
         public ProductController(IConfiguration configuration, ILogger<ProductController> logger,
-                                 IMapper mapper, IProductRepository productRepository,
-                                 ICategoryRepository categoryRepository, ISupplierRepository supplierRepository)
+                                 IMapper mapper, IService<Product> _productService,
+                                 IService<Category> categoryService, IService<Supplier> supplierService)
         {
             _configuration = configuration;
             _logger = logger;
             _mapper = mapper;
-            _repository = productRepository;
-            _categoryRepository = categoryRepository;
-            _supplierRepository = supplierRepository;
+            _service = _productService;
+            _categoryService = categoryService;
+            _supplierService = supplierService;
         }
 
         public async Task<IActionResult> Index()
         {
             var count = _configuration.GetValue<int>("PageSize");
             _logger.LogInformation($"App setting \"PageSize\" have been read. Value:{count}");
-            var model = _mapper.Map<IEnumerable<ProductViewModel>>(await _repository.GetFirstAsync(count));
+            var model = _mapper.Map<IEnumerable<ProductViewModel>>(await _service.GetPagedAsync(count, 1));
             return View(model);
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var productToEdit = _mapper.Map<ProductViewModel>(await _repository.GetAsync(id));
+            var productToEdit = _mapper.Map<ProductViewModel>(await _service.GetAsync(id));
             var model = await GetEditViewModelAsync(productToEdit);
             return View(model);
         }
@@ -53,7 +53,7 @@ namespace Mentoring.Core.Module1.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _repository.EditAsync(_mapper.Map<Products>(item.Product));
+                await _service.EditAsync(_mapper.Map<Product>(item.Product));
                 return RedirectToAction("Index");
             }
             return View(await GetEditViewModelAsync(item.Product));
@@ -72,7 +72,7 @@ namespace Mentoring.Core.Module1.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _repository.CreateAsync(_mapper.Map<Products>(item.Product));
+                await _service.CreateAsync(_mapper.Map<Product>(item.Product));
                 return RedirectToAction("Index");
             }
             return View(await GetEditViewModelAsync(item.Product));
@@ -83,8 +83,8 @@ namespace Mentoring.Core.Module1.Controllers
             return new EditProductViewModel
             {
                 Product = model,
-                Categories = _mapper.Map<IEnumerable<CategoryViewModel>>(await _categoryRepository.GetAllAsync()),
-                Suppliers = _mapper.Map<IEnumerable<SupplierViewModel>>(await _supplierRepository.GetAllAsync())
+                Categories = _mapper.Map<IEnumerable<CategoryViewModel>>(await _categoryService.GetAllAsync()),
+                Suppliers = _mapper.Map<IEnumerable<SupplierViewModel>>(await _supplierService.GetAllAsync())
             };
         }
     }

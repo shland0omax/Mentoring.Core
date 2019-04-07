@@ -1,6 +1,10 @@
 ﻿using AutoMapper;
-using Mentoring.Core.Data.Models;
+using Mentoring.Core.Services.Models;
 using Mentoring.Core.Module1.Models;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace Mentoring.Core.Module1.Mappers
 {
@@ -8,13 +12,12 @@ namespace Mentoring.Core.Module1.Mappers
     {
         public MappingProfile()
         {
-            CreateMap<Products, ProductViewModel>();
-            CreateMap<Categories, CategoryViewModel>();
-            CreateMap<Suppliers, SupplierViewModel>();
+            CreateMap<Product, ProductViewModel>();
+            CreateMap<Category, CategoryViewModel>();
+            CreateMap<Supplier, SupplierViewModel>();
 
-            CreateMap<ProductViewModel, Products>();
-            CreateMap<CategoryViewModel, Categories>();
-            CreateMap<SupplierViewModel, Suppliers>();
+            CreateMap<ProductViewModel, Product>();
+            CreateMap<SupplierViewModel, Supplier>();
         }
     }
 }

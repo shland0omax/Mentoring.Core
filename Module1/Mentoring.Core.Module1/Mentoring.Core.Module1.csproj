@@ -21,10 +21,12 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Mime" Version="3.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Mentoring.Core.Data\Mentoring.Core.Data.csproj" />
+    <ProjectReference Include="..\Mentoring.Core.Services\Mentoring.Core.Services.csproj" />
   </ItemGroup>
 
 </Project>

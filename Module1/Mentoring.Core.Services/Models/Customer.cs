@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Mentoring.Core.Data.Models
+namespace Mentoring.Core.Services.Models
 {
-    public partial class Customers
+    public partial class Customer
     {
-        public Customers()
+        public Customer()
         {
             CustomerCustomerDemo = new HashSet<CustomerCustomerDemo>();
-            Orders = new HashSet<Orders>();
+            Orders = new HashSet<Order>();
         }
 
         [Key]
@@ -25,6 +25,6 @@ namespace Mentoring.Core.Data.Models
         public string Fax { get; set; }
 
         public ICollection<CustomerCustomerDemo> CustomerCustomerDemo { get; set; }
-        public ICollection<Orders> Orders { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }

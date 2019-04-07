@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Mentoring.Core.Data.Models
+namespace Mentoring.Core.Services.Models
 {
-    public partial class Products
+    public partial class Product
     {
-        public Products()
+        public Product()
         {
             //OrderDetails = new HashSet<OrderDetails>();
         }
@@ -23,8 +23,8 @@ namespace Mentoring.Core.Data.Models
         public short? ReorderLevel { get; set; }
         public bool Discontinued { get; set; }
 
-        public Categories Category { get; set; }
-        public Suppliers Supplier { get; set; }
+        public Category Category { get; set; }
+        public Supplier Supplier { get; set; }
         //public ICollection<OrderDetails> OrderDetails { get; set; }
     }
 }

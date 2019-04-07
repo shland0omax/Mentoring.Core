@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Mentoring.Core.Data.Models
+namespace Mentoring.Core.Services.Models
 {
     public partial class CustomerDemographics
     {

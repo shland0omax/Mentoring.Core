@@ -1,7 +1,7 @@
 ﻿@using Mentoring.Core.Module1.Models
 @model IEnumerable<ProductViewModel>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <h2>Products we have</h2>
+    <h2>Product we have</h2>
     
     <table class="table">
         <tr>
@@ -29,9 +29,7 @@
             <td>@item.UnitsInStock</td>
             <td>@item.UnitsOnOrder</td>
             <td>@item.ReorderLevel</td>
-            <td>
-                <span class="glyphicon @(item.Discontinued ? "fa-check" : "fa-remove") "></span>
-            </td>
+            <td>@(item.Discontinued ? "Yes" : "No")</td>
             <td><a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.ProductId">Edit</a></td>
         </tr>
         }

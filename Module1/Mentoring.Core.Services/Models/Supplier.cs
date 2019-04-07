@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Mentoring.Core.Data.Models
+namespace Mentoring.Core.Services.Models
 {
-    public partial class Suppliers
+    public partial class Supplier
     {
-        public Suppliers()
+        public Supplier()
         {
-            Products = new HashSet<Products>();
+            Products = new HashSet<Product>();
         }
 
         [Key]
@@ -25,6 +25,6 @@ namespace Mentoring.Core.Data.Models
         public string Fax { get; set; }
         public string HomePage { get; set; }
 
-        public ICollection<Products> Products { get; set; }
+        public ICollection<Product> Products { get; set; }
     }
 }

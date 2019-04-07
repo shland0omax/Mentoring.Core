@@ -9,7 +9,7 @@ namespace Mentoring.Core.Module1.Services
     {
         private readonly string _filePath;
         private readonly LogLevel _minLogLevel;
-        private readonly object _lock = new object();
+        private static readonly object _lock = new object();
 
         public FileLogger(string path, LogLevel logLevel = LogLevel.Information)
         {

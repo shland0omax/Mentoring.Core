@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Mentoring.Core.Data.Models
+namespace Mentoring.Core.Services.Models
 {
-    public partial class Orders
+    public partial class Order
     {
-        public Orders()
+        public Order()
         {
             OrderDetails = new HashSet<OrderDetails>();
         }
@@ -27,9 +27,9 @@ namespace Mentoring.Core.Data.Models
         public string ShipPostalCode { get; set; }
         public string ShipCountry { get; set; }
 
-        public Customers Customer { get; set; }
-        public Employees Employee { get; set; }
-        public Shippers ShipViaNavigation { get; set; }
+        public Customer Customer { get; set; }
+        public Employee Employee { get; set; }
+        public Shipper ShipViaNavigation { get; set; }
         public ICollection<OrderDetails> OrderDetails { get; set; }
     }
 }

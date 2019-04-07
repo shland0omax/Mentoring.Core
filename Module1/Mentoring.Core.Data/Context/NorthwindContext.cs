@@ -1,4 +1,4 @@
-﻿using Mentoring.Core.Data.Models;
+﻿using Mentoring.Core.Services.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Mentoring.Core.Data.Context
@@ -11,18 +11,18 @@ namespace Mentoring.Core.Data.Context
         public NorthwindContext(DbContextOptions<NorthwindContext> options): base(options)
         { }
 
-        public virtual DbSet<Categories> Categories { get; set; }
-        public virtual DbSet<Suppliers> Suppliers { get; set; }
-        public virtual DbSet<Products> Products { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
         //public virtual DbSet<CustomerCustomerDemo> CustomerCustomerDemo { get; set; }
         //public virtual DbSet<CustomerDemographics> CustomerDemographics { get; set; }
-        //public virtual DbSet<Customers> Customers { get; set; }
-        //public virtual DbSet<Employees> Employees { get; set; }
-        //public virtual DbSet<EmployeeTerritories> EmployeeTerritories { get; set; }
+        //public virtual DbSet<Customer> Customers { get; set; }
+        //public virtual DbSet<Employee> Employees { get; set; }
+        //public virtual DbSet<EmployeeTerritory> EmployeeTerritories { get; set; }
         //public virtual DbSet<OrderDetails> OrderDetails { get; set; }
-        //public virtual DbSet<Orders> Orders { get; set; }
-        //public virtual DbSet<Region> Region { get; set; }
-        //public virtual DbSet<Shippers> Shippers { get; set; }
-        //public virtual DbSet<Territories> Territories { get; set; }
+        //public virtual DbSet<Order> Orders { get; set; }
+        //public virtual DbSet<Region> Regions { get; set; }
+        //public virtual DbSet<Shipper> Shippers { get; set; }
+        //public virtual DbSet<Territory> Territories { get; set; }
     }
 }

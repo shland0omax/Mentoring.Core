@@ -8,13 +8,21 @@
         <th scope="col">№</th>
         <th scope="col">Name</th>
         <th scope="col">Description</th>
+        <th scope="col">Image</th>
+        <th scope="col">Upload</th>
     </tr>
     @foreach (var item in Model)
     {
-        <tr>
-            <td>@item.CategoryId</td>
-            <td>@item.CategoryName</td>
-            <td>@item.Description</td>
-        </tr>
+    <tr>
+        <td>@item.CategoryId</td>
+        <td>@item.CategoryName</td>
+        <td>@item.Description</td>
+        <td>
+            <a asp-action="Image" asp-route-id="@item.CategoryId">
+                <img src="@Url.Action("Image", "Category", new { id = item.CategoryId })" alt="No image" width="150" />
+            </a>
+        </td>
+        <td><a class="btn btn-primary" asp-action="UploadImage" asp-route-id="@item.CategoryId">Upload other</a></td>
+    </tr>
     }
 </table>

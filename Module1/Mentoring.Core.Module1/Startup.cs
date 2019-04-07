@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
 using Mentoring.Core.Data.Context;
-using Mentoring.Core.Data.Interface;
 using Mentoring.Core.Data.Repositories;
+using Mentoring.Core.Module1.Services;
+using Mentoring.Core.Module1.Services.Interface;
+using Mentoring.Core.Services.Interface;
+using Mentoring.Core.Services.Models;
+using Mentoring.Core.Services.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
@@ -31,7 +35,7 @@ namespace Mentoring.Core.Module1
             services.AddDbContext<NorthwindContext>(
                 options => options.UseSqlServer(connection));
             _logger.LogInformation($"Connection string have been read. Value: {connection}");
-            ConfigureDi(services);
+            ConfigureDependencies(services);
             services.AddAutoMapper();
             services.AddMvc();
         }
@@ -62,11 +66,19 @@ namespace Mentoring.Core.Module1
             routeBuilder.MapRoute("Default","{controller=Home}/{action=Index}/{id?}");
         }
 
-        private void ConfigureDi(IServiceCollection services)
+        private void ConfigureDependencies(IServiceCollection services)
         {
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<ISupplierRepository, SupplierRepository>();
+            services.AddScoped<IRepository<Product>, ProductRepository>();
+            services.AddScoped<IRepository<Supplier>, Repository<Supplier>>();
+            services.AddScoped<IRepository<Category>, Repository<Category>>();
+
+            services.AddScoped<IService<Product>, Service<Product>>();
+            services.AddScoped<IService<Supplier>, Service<Supplier>>();
+            services.AddScoped<IService<Category>, Service<Category>>();
+            services.AddScoped<ICategoryService, CategoryService>();
+
+            services.AddSingleton<IMimeGuesser, MimeGuesser>();
+
         }
     }
 }

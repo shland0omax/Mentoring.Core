@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Mentoring.Core.Data.Models
+namespace Mentoring.Core.Services.Models
 {
     public partial class OrderDetails
     {
@@ -12,7 +12,7 @@ namespace Mentoring.Core.Data.Models
         public short Quantity { get; set; }
         public float Discount { get; set; }
 
-        public Orders Order { get; set; }
-        public Products Product { get; set; }
+        public Order Order { get; set; }
+        public Product Product { get; set; }
     }
 }
