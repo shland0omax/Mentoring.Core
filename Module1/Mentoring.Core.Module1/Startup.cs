@@ -63,6 +63,7 @@ namespace Mentoring.Core.Module1
 
         private void ConfigureRoutes(IRouteBuilder routeBuilder)
         {
+            routeBuilder.MapRoute("images", "images/{id:int}", new {controller = "Category", action = "Image"});
             routeBuilder.MapRoute("Default","{controller=Home}/{action=Index}/{id?}");
         }
 

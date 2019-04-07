@@ -19,7 +19,7 @@
         <td>@item.Description</td>
         <td>
             <a asp-action="Image" asp-route-id="@item.CategoryId">
-                <img src="@Url.Action("Image", "Category", new { id = item.CategoryId })" alt="No image" width="150" />
+                <img src="images/@item.CategoryId" alt="No image" width="150" />
             </a>
         </td>
         <td><a class="btn btn-primary" asp-action="UploadImage" asp-route-id="@item.CategoryId">Upload other</a></td>
