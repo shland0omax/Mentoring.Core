@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Mentoring.Core.Data.Context;
 using Mentoring.Core.Data.Repositories;
+using Mentoring.Core.Module1.Filters;
+using Mentoring.Core.Module1.Middleware;
 using Mentoring.Core.Module1.Services;
 using Mentoring.Core.Module1.Services.Interface;
 using Mentoring.Core.Services.Interface;
@@ -37,7 +39,7 @@ namespace Mentoring.Core.Module1
             _logger.LogInformation($"Connection string have been read. Value: {connection}");
             ConfigureDependencies(services);
             services.AddAutoMapper();
-            services.AddMvc();
+            services.AddMvc(opt => opt.Filters.Add<ActionLogFilter>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,11 +53,11 @@ namespace Mentoring.Core.Module1
             {
                 app.UseExceptionHandler("Error/500");
             }
-
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
             app.UseFileServer();
             app.UseNodeModules(env.ContentRootPath);
+            app.UseMiddleware<ImageCachingMiddleware>();
 
             app.UseMvc(ConfigureRoutes);
             _logger.LogInformation($"Startup configuration finished. App is ready to run! Folder: {env.ContentRootPath}");
@@ -79,7 +81,9 @@ namespace Mentoring.Core.Module1
             services.AddScoped<ICategoryService, CategoryService>();
 
             services.AddSingleton<IMimeGuesser, MimeGuesser>();
-
+            services.AddSingleton<ICachingService, LocalCachingService>(
+                x => new LocalCachingService(x.GetService<IConfiguration>(),
+                    x.GetService<IHostingEnvironment>()));
         }
     }
 }
