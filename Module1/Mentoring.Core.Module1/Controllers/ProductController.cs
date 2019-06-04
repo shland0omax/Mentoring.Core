@@ -42,7 +42,9 @@ namespace Mentoring.Core.Module1.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var productToEdit = _mapper.Map<ProductViewModel>(await _service.GetAsync(id));
+            var product = await _service.GetAsync(id);
+            if (product == null) return RedirectToAction("Index");
+            var productToEdit = _mapper.Map<ProductViewModel>(product);
             var model = await GetEditViewModelAsync(productToEdit);
             return View(model);
         }
